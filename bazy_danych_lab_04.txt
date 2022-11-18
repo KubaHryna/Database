@@ -1,0 +1,49 @@
+#lab 4, zadanie 1
+Select*from postac
+order by data_ur desc;
+delete from postac where id_postaci=5;
+delete from postac where id_postaci=7;
+select * from postac;
+#bardziej dynamicznie
+-- select * from postac 
+-- order by data_ur desc limit 2;
+#podpunkt b
+desc postac;
+ALTER TABLE postac DROP PRIMARY KEY;
+#problem 1 -atrybut auto_increment
+ALTER TABLE postac MODIFY id_postaci INT;
+SET foreign_key_checks=0;
+#klucze obce w tabeli walizka
+desc walizka;
+alter table walizka drop foreign key walizka_ibfk_1;
+#klucze w tabeli przetwory
+alter table przetwory drop foreign key przetwory_ibfk_1;
+alter table przetwory drop foreign key przetwory_ibfk_2;
+show create table przetwory;
+show create table walizka;
+ALTER TABLE postac MODIFY id_postaci INT;
+show create table postac;
+ALTER TABLE postac DROP PRIMARY KEY;
+show create table postac;
+
+
+#ZADANIE 2
+ALTER TABLE postac ADD pesel char(11) first;
+update postac set pesel='21345678619' + id_postaci;
+ALTER TABLE postac ADD PRIMARY KEY(pesel);
+
+#podpunkt b
+ALTER TABLE postac MODIFY COLUMN rodzaj ENUM('wiking','ptak','kobieta','syrena');
+desc postac;
+#podpunkt c
+INSERT INTO postac values('12345678901',9,'Gertruda Nieszczera','syrena','1940-12-24',82,'brak','brak');
+
+#ZADANIE 3
+#podpunkt a
+select*from postac;
+update  postac set statek='Tytanic' WHERE nazwa LIKE '%a%';
+#podpunkt b
+select*from statek;
+update statek set max_ladownosc=(max_ladownosc*0.7) WHERE data_wodowania <'2000-01-01' AND data_wodowania >'1901-01-01';
+select*from statek;
+#podpunkt c
