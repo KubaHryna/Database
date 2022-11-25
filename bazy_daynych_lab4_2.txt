@@ -1,0 +1,42 @@
+Zad 3
+#podpunkt c
+select*from postac;
+alter table postac add check(wiek<1000);
+\\\\\\\\\\\\\\\\\\\\\\\
+ZAD 4
+#podpunkt a
+desc postac;
+alter table postac modify column rodzaj enum('wiking','wąż','ptak','kobieta','syrena');
+insert into postac values ('12345778951',8,'wąż loko','wąż','1650-04-29',72,'wicie się',null);
+select*from postac;
+#podpunkt b
+create table marynarz like postac;
+insert into marynarz (pesel,id_postaci,nazwa,rodzaj,data_ur,wiek,funkcja,statek) select pesel,id_postaci,nazwa,rodzaj,data_ur,wiek,funkcja,statek from postac where statek is not null;
+select*from marynarz;
+#podpunkt c
+alter table marynarz add primary key(pesel);
+alter table marynarz add foreign key (statek) references statek(nazwa_statku);
+desc marynarz;
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+ZAD 5
+#podpunkt a
+update postac set statek=null where (id_postaci>0);
+select*from postac;
+#podpunkt b
+delete from postac where nazwa='Balji';
+#podpunkt c
+desc statek;
+alter table marynarz drop foreign key marynarz_ibfk_1;
+delete from statek ;
+#podpunkt d
+drop table statek;
+alter table postac drop foreign key postac_ibfk_1;
+drop table statek;
+#podpunkt e
+create table zwierz(id int auto_increment primary key,
+nazwa char ,
+wiek int unsigned);
+alter table zwierz modify column nazwa varchar(1000);
+#podpunkt f
+insert into zwierz (nazwa,wiek) select nazwa,wiek from postac where postac.rodzaj like 'wąż' or postac.rodzaj like 'ptak';
+select*from postac;
