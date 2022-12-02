@@ -1,0 +1,36 @@
+#LAB 6 
+
+#ZADANIE 1
+#podpunkt 1
+select avg(kreatura.waga) as średnia_waga_wikingów from kreatura;
+#podpunkt 2
+select*from kreatura;
+select  kreatura.rodzaj , count(kreatura.idkreatury) , avg(kreatura.waga) from kreatura group by rodzaj;
+#podpunkt 3
+select kreatura.rodzaj,avg(2022-YEAR(dataUr)) as średni_wiek from kreatura group by rodzaj;
+
+#ZADANIE 2
+#podpunkt 1
+select zasob.rodzaj,sum(zasob.waga) from zasob group by rodzaj;
+#podpunkt 2
+select zasob.nazwa,avg(zasob.waga)as średnia_waga from zasob where (zasob.ilosc)>4 group by zasob.nazwa having avg(zasob.waga)>10;
+#podpunkt 3
+select zasob.nazwa,count(zasob.idZasobu)as liczba_rodzajów from zasob where (zasob.ilosc)>1 group by zasob.nazwa;
+
+#ZADANIE 3
+
+#podpunkt 1
+select kreatura.nazwa,sum(ekwipunek.ilosc) from kreatura inner join ekwipunek on (kreatura.idkreatury=ekwipunek.idkreatury) group by kreatura.nazwa;
+#podpunkt 2
+select kreatura.nazwa,zasob.nazwa from kreatura inner join ekwipunek on (kreatura.idkreatury=ekwipunek.idkreatury) inner join zasob on (zasob.idzasobu=ekwipunek.idZasobu);
+#podpunkt 3
+select kreatura.nazwa from kreatura left join ekwipunek on(kreatura.idkreatury=ekwipunek.idkreatury) where ekwipunek.idEkwipunku is null;
+
+#ZADANIE 4
+
+#podpunkt 1
+select kreatura.nazwa,zasob.nazwa from kreatura inner join ekwipunek on (kreatura.idkreatury=ekwipunek.idkreatury) inner join zasob on (zasob.idzasobu=ekwipunek.idZasobu) where kreatura.rodzaj like "wiking" and Year(dataUr) between 1670 and 1679 ;
+
+#podpunkt 2
+
+select kreatura.nazwa from kreatura inner join ekwipunek on (kreatura.idkreatury=ekwipunek.idkreatury) inner join zasob on (zasob.idzasobu=ekwipunek.idZasobu) where zasob.rodzaj like "jedzenie";
