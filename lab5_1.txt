@@ -46,4 +46,5 @@ select sum(zasob.waga*zasob.ilosc)*0.7 as jedzenie ,	sum(zasob.waga*zasob.ilosc)
 #podpunkt b
 select*from zasob where rodzaj is null;
 #podpunkt c
-select distinct nazwa from zasob where nazwa like "Ba%" OR nazwa like "%os" order by nazwa;
+select distinct distinct rodzaj from zasob where nazwa like "Ba%" OR nazwa like "%os" order by nazwa;
+
