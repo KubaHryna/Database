@@ -39,3 +39,11 @@ select distinct zasob.rodzaj from zasob;
 select concat(nazwa,' ',rodzaj) AS ScaloneKolumny from kreatura;
 #podpunkt c
 select ilosc*waga from zasob where year(zasob.dataPozyskania) between 2000 and 2007;
+#ZAD5 
+#podpunkt a
+desc zasob;
+select sum(zasob.waga*zasob.ilosc)*0.7 as jedzenie ,	sum(zasob.waga*zasob.ilosc)*0.3 as odpad from zasob where rodzaj="jedzenie";
+#podpunkt b
+select*from zasob where rodzaj is null;
+#podpunkt c
+select distinct nazwa from zasob where nazwa like "Ba%" OR nazwa like "%os" order by nazwa;
