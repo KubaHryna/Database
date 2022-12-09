@@ -34,3 +34,20 @@ select kreatura.nazwa,zasob.nazwa from kreatura inner join ekwipunek on (kreatur
 #podpunkt 2
 
 select kreatura.nazwa from kreatura inner join ekwipunek on (kreatura.idkreatury=ekwipunek.idkreatury) inner join zasob on (zasob.idzasobu=ekwipunek.idZasobu) where zasob.rodzaj like "jedzenie";
+
+#podpunkt 3
+select*from kreatura;
+select a1.nazwa,kreatura.nazwa from kreatura a1 inner join kreatura 
+on(a1.idKreatury+5=kreatura.idKreatury) ;
+
+#ZADANIE 5
+#podpunkt 1
+select kreatura.rodzaj,avg(zasob.waga*ekwipunek.ilosc) as średnia_waga from kreatura 
+inner join ekwipunek on (kreatura.idkreatury=ekwipunek.idkreatury) 
+inner join zasob on (zasob.idzasobu=ekwipunek.idZasobu) 
+where ekwipunek.ilosc<30 and kreatura.rodzaj<>'waz' and kreatura.rodzaj<>'malpa' group by kreatura.rodzaj;
+#podpunkt 2
+select*from kreatura;
+(select kreatura.nazwa,min(dataUr),kreatura.rodzaj from kreatura group by kreatura.rodzaj)
+UNION
+(select kreatura.nazwa,max(dataUr),kreatura.rodzaj from kreatura  group by kreatura.rodzaj);
