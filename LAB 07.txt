@@ -1,0 +1,33 @@
+#LAB 07 
+
+#ZAD 1
+#podpunkt 1
+create table hryniewiczj.kreatura as select* from wikingowie.kreatura;
+create table hryniewiczj.etapy_wyprawy as select* from wikingowie.etapy_wyprawy;
+create table hryniewiczj.sektor as select* from wikingowie.sektor;
+create table hryniewiczj.wyprawa as select* from wikingowie.wyprawa;
+create table hryniewiczj.uczestnicy as select* from wikingowie.uczestnicy;
+create table hryniewiczj.ekwipunek as select* from wikingowie.ekwipunek;
+
+
+#podpunkt 2
+select nazwa from kreatura left join uczestnicy on(kreatura.idKreatury=uczestnicy.id_uczestnika) where uczestnicy.id_uczestnika is null;
+
+#podpunkt 3
+select wyprawa.nazwa,sum(ekwipunek.ilosc) from wyprawa inner join uczestnicy on(wyprawa.id_wyprawy=uczestnicy.id_wyprawy) inner join ekwipunek on(uczestnicy.id_uczestnika=ekwipunek.idKreatury) group by wyprawa.id_wyprawy;
+
+#ZAD 2
+#podpunkt 1
+select wyprawa.nazwa,count(uczestnicy.id_uczestnika) as Liczba_Uczestników ,group_concat(kreatura.nazwa)
+from wyprawa 
+inner join uczestnicy on(wyprawa.id_wyprawy=uczestnicy.id_wyprawy) 
+inner join kreatura on(uczestnicy.id_uczestnika=kreatura.idKreatury) 
+group by wyprawa.nazwa;
+#podpunkt 2
+select*from sektor;
+select*from etapy_wyprawy;
+select wyprawa.nazwa,kreatura.nazwa,etapy_wyprawy.sektor,sektor.nazwa from wyprawa 
+inner join etapy_wyprawy on(wyprawa.id_wyprawy=etapy_wyprawy.idWyprawy) 
+inner join sektor on(etapy_wyprawy.sektor=sektor.id_sektora)
+inner join kreatura on(wyprawa.kierownik=kreatura.idKreatury)
+order by wyprawa.data_rozpoczecia,etapy_wyprawy.kolejnosc;
