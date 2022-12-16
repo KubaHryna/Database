@@ -42,7 +42,7 @@ on(a1.idKreatury+5=kreatura.idKreatury) ;
 
 #ZADANIE 5
 #podpunkt 1
-select kreatura.rodzaj,avg(zasob.waga*ekwipunek.ilosc) as średnia_waga from kreatura 
+select kreatura.rodzaj,count(distinct ekwipunek.idKreatury),sum(zasob.waga*ekwipunek.ilosc)/count(distinct ekwipunek.idKreatury) as średnia_waga from kreatura 
 inner join ekwipunek on (kreatura.idkreatury=ekwipunek.idkreatury) 
 inner join zasob on (zasob.idzasobu=ekwipunek.idZasobu) 
 where ekwipunek.ilosc<30 and kreatura.rodzaj<>'waz' and kreatura.rodzaj<>'malpa' group by kreatura.rodzaj;
