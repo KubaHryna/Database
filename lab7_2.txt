@@ -1,0 +1,45 @@
+use hryniewiczj;
+#///////////////
+#ZAD 3
+#podpunkt 1
+select sektor.nazwa,ifnull(count(etapy_wyprawy.sektor),"0") as ilosc_odwiedzin
+from sektor
+left join etapy_wyprawy on(sektor.id_sektora=etapy_wyprawy.sektor) group by sektor.nazwa;
+#podpunkt 2
+select kreatura.nazwa,
+if(count(uczestnicy.id_wyprawy)>0,
+"brał udział",
+"nie brał udziału") as Czy_brał_udział
+from kreatura 
+left join uczestnicy on(kreatura.idKreatury=uczestnicy.id_uczestnika) group by kreatura.nazwa;
+#ZAD 4
+#podpunkt 1
+select wyprawa.nazwa,sum(length(etapy_wyprawy.dziennik)) as Liczba_znaków from wyprawa
+inner join etapy_wyprawy
+on (wyprawa.id_wyprawy=etapy_wyprawy.idWyprawy) 
+group by wyprawa.id_wyprawy
+having sum(length(etapy_wyprawy.dziennik))<400;
+#podpunkt 2
+SELECT wyprawa.nazwa, 
+SUM(zasob.waga*ekwipunek.ilosc)/COUNT(distinct uczestnicy.id_uczestnika) 
+FROM uczestnicy 
+INNER JOIN wyprawa ON (uczestnicy.id_wyprawy=wyprawa.id_wyprawy) 
+INNER JOIN kreatura ON (kreatura.idKreatury=uczestnicy.id_uczestnika) INNER JOIN ekwipunek ON (ekwipunek.idKreatury=kreatura.idKreatury) 
+INNER JOIN zasob ON (ekwipunek.idZasobu=zasob.idZasobu) 
+GROUP BY uczestnicy.id_wyprawy 
+ORDER BY wyprawa.id_wyprawy;
+#ZAD 5
+#podpunkt 1
+SELECT k.nazwa,
+w.nazwa,
+DATEDIFF(w.data_rozpoczecia, k.dataUr) as 'Wiek w dniach'
+FROM kreatura k,
+etapy_wyprawy ew,
+wyprawa w,
+sektor s,
+uczestnicy u
+WHERE ew.sektor = s.id_sektora
+and k.idKreatury=u.id_uczestnika
+and u.id_wyprawy=w.id_wyprawy
+AND ew.idWyprawy = w.id_wyprawy
+AND s.nazwa = "Chatka dziadka";
