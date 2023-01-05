@@ -1,0 +1,11 @@
+#Zadania lab3
+#ZAD 3
+select dzial.nazwa,count(pracownik.id_pracownika) as liczba_pracowników
+from pracownik
+inner join dzial on pracownik.dzial=dzial.id_dzialu
+group by dzial.nazwa;
+#ZAD 4
+select kategoria.nazwa_kategori,count(towar.id_towaru) as liczba_produktów
+from kategoria 
+inner join towar on(kategoria.id_kategori=towar.kategoria)
+group by kategoria.nazwa_kategori;
