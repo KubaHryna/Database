@@ -1,0 +1,28 @@
+#LAB 3 PRACA DOMOWA
+#ZAD 1
+select imie,nazwisko,data_urodzenia from pracownik;
+#ZAD 2
+select imie,nazwisko,(2023-YEAR(data_urodzenia)) as Wiek from pracownik;
+#ZAD 5
+select kategoria.nazwa_kategori,group_concat(towar.nazwa_towaru) AS Nazwa_Towaru from kategoria 
+inner join towar on(kategoria.id_kategori=towar.kategoria) group by kategoria.nazwa_kategori;
+#ZAD 6
+select  ROUND(sum(pracownik.pensja)/(count(pracownik.id_pracownika)),2) 
+as średnia_pensja from pracownik;
+#ZAD 7
+select sum(pracownik.pensja)/(count(pracownik.id_pracownika)) as średnia_pensja from pracownik 
+where 2023-year(pracownik.data_zatrudnienia)>5;
+#ZAD 8
+select towar.nazwa_towaru,sum(ilosc) as liczba_sprzedanych from towar
+inner join pozycja_zamowienia on (towar.id_towaru=pozycja_zamowienia.towar)
+group by towar.nazwa_towaru order by sum(ilosc) desc limit 5;
+#ZAD 9
+select*from pozycja_zamowienia;
+select zamowienie.numer_zamowienia,sum(pozycja_zamowienia.ilosc*pozycja_zamowienia.cena) as łaczna_kwota from zamowienie 
+inner join pozycja_zamowienia on (zamowienie.id_zamowienia=pozycja_zamowienia.zamowienie) where data_zamowienia between '2017.01.01' and '2017.03.31'
+group by zamowienie.numer_zamowienia;
+
+#ZAD 10
+select pracownik.imie,pracownik.nazwisko,sum(pozycja_zamowienia.ilosc*pozycja_zamowienia.cena) as łaczna_kwota from zamowienie 
+inner join pozycja_zamowienia on (zamowienie.id_zamowienia=pozycja_zamowienia.zamowienie)
+inner join pracownik on (zamowienie.pracownik_id_pracownika=pracownik.id_pracownika) group by pracownik.imie order by łaczna_kwota desc;
