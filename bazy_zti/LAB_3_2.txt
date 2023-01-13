@@ -1,7 +1,9 @@
 #LAB 3_2
+
 #ZAD 1
 select dzial.nazwa,min(pracownik.pensja)as minimalna,max(pracownik.pensja)as maksymalna,avg(pracownik.pensja) as średnia from dzial
 inner join pracownik on (dzial.id_dzialu=pracownik.dzial) group by dzial.nazwa;
+
 #ZAD 2
 select klient.pelna_nazwa,sum(pozycja_zamowienia.ilosc*pozycja_zamowienia.cena) as wartosc_zamowienia from klient
 inner join zamowienie on (klient.id_klienta=zamowienie.klient)
@@ -35,6 +37,7 @@ from zamowienie
 inner join pozycja_zamowienia on(zamowienie.id_zamowienia=pozycja_zamowienia.zamowienie)
 inner join towar on pozycja_zamowienia.towar=towar.id_towaru
 where zamowienie.status_zamowienia=5;
+
 #ZAD 7
 select YEAR(zamowienie.data_zamowienia)as rok,sum(pozycja_zamowienia.ilosc*pozycja_zamowienia.cena)-sum(pozycja_zamowienia.ilosc*towar.cena_zakupu) as dochod
 from zamowienie
